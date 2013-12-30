@@ -1,4 +1,4 @@
 ann-toolkits-comparison
 =======================
 
-Experiments comparing thee toolkits: April-ANN, Torch 7, Theano
+Experiments comparing trhee toolkits: April-ANN, Torch 7, Theano
