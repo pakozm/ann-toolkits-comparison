@@ -2,7 +2,9 @@ require 'torch'
 require 'image'
 require 'nn'
 
-model  = nn.Sequential()
+local max_epochs = 40
+
+local model = nn.Sequential()
 model:add(nn.Reshape(256))
 model:add(nn.Linear(256, 256))
 model:add(nn.Tanh())
@@ -11,10 +13,10 @@ model:add(nn.Tanh())
 model:add(nn.Linear(128, 10))
 model:add(nn.LogSoftMax())
 
-digits = image.loadPNG('digits.png')
-digits = torch.reshape(digits, digits:size(2), digits:size(3))
-train_ds = {}
-val_ds   = {}
+local digits = image.loadPNG('digits.png')
+local digits = torch.reshape(digits, digits:size(2), digits:size(3))
+local train_ds = {}
+local val_ds   = {}
 for i=1,digits:size(1)-1,16 do
   local dest_ds = train_ds
   if i > 1280 then
@@ -30,9 +32,9 @@ end
 train_ds.size = function() return #train_ds end
 val_ds.size = function() return #val_ds end
 
-criterion = nn.ClassNLLCriterion()  
+local criterion = nn.ClassNLLCriterion()  
 
-for i = 1,10 do
+for i = 1,max_epochs do
   local tr_loss = 0
   local va_loss = 0
   for j=1,train_ds:size() do
